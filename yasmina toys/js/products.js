@@ -1,7 +1,6 @@
 // Yasminem Kids - Dastlabki Ma'lumotlar va Sozlamalar
 
 const DEFAULT_SETTINGS = {
-  phone: "+998930688035",
   telegram: "Yasminemkidss",
   shopName: "Yasminem Kids",
   address: "Toshkent shahri, Chilonzor tumani",

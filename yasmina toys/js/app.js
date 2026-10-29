@@ -17,10 +17,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   function applyStoreSettings(customSettings) {
     const s = customSettings || getStoreSettings();
 
-    // Telefon raqamlar
-    document.querySelectorAll(".store-phone-text").forEach(el => el.innerText = s.phone);
-    document.querySelectorAll(".store-phone-link").forEach(el => el.href = `tel:${s.phone.replace(/\s+/g, '')}`);
-
     // Telegram havolalar
     const cleanTg = (s.telegram || "Yasminemkidss").replace(/^@/, '');
     document.querySelectorAll(".store-tg-text").forEach(el => el.innerText = `@${cleanTg}`);
@@ -157,7 +153,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const modal = document.getElementById("order-modal");
     const content = document.getElementById("order-modal-content");
     const cleanTg = (s.telegram || "Yasminemkidss").replace(/^@/, '');
-    const cleanPhone = (s.phone || "+998930688035").replace(/\s+/g, '');
 
     const tgMessage = encodeURIComponent(`Assalomu alaykum! Men "Yasminem Kids" do'konidan "${item.name}" kiyimini sotib olmoqchiman.\nNarxi: ${formatPrice(item.price)}.\nBatafsil ma'lumot bera olasizmi?`);
     const tgUrl = `https://t.me/${cleanTg}?text=${tgMessage}`;
@@ -174,7 +169,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         <p class="text-xl font-extrabold text-pink-700 mt-1 mb-4">${formatPrice(item.price)}</p>
 
         <p class="text-xs text-slate-500 leading-relaxed mb-6 bg-slate-50 p-3 rounded-2xl border border-slate-100">
-          Ushbu mahsulotni to'g'ridan-to'g'ri do'kon admini orqali xarid qilishingiz mumkin. Quyidagi qulay usulni tanlang:
+          Ushbu mahsulotni to'g'ridan-to'g'ri do'kon admini orqali Telegramda xarid qilishingiz mumkin:
         </p>
 
         <div class="space-y-3">
@@ -186,15 +181,6 @@ document.addEventListener("DOMContentLoaded", async () => {
           >
             <i data-lucide="send" class="w-4 h-4"></i>
             <span>Telegram orqali yozish (@${cleanTg})</span>
-          </a>
-
-          <!-- Telefon orqali xarid -->
-          <a 
-            href="tel:${cleanPhone}" 
-            class="w-full py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 transition active:scale-95"
-          >
-            <i data-lucide="phone-call" class="w-4 h-4"></i>
-            <span>Qo'ng'iroq qilish (${s.phone})</span>
           </a>
         </div>
       </div>
@@ -218,7 +204,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const modal = document.getElementById("product-modal");
     const content = document.getElementById("product-modal-content");
     const cleanTg = (s.telegram || "Yasminemkidss").replace(/^@/, '');
-    const cleanPhone = (s.phone || "+998930688035").replace(/\s+/g, '');
 
     const tgMessage = encodeURIComponent(`Assalomu alaykum! Men "${item.name}" kiyimi haqida ma'lumot olmoqchiman. Narxi: ${formatPrice(item.price)}`);
     const tgUrl = `https://t.me/${cleanTg}?text=${tgMessage}`;
@@ -253,15 +238,7 @@ document.addEventListener("DOMContentLoaded", async () => {
               class="w-full py-3.5 px-4 rounded-2xl bg-sky-500 hover:bg-sky-600 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-md transition active:scale-95"
             >
               <i data-lucide="send" class="w-4 h-4"></i>
-              <span>Telegramda buyurtma berish</span>
-            </a>
-
-            <a 
-              href="tel:${cleanPhone}" 
-              class="w-full py-3.5 px-4 rounded-2xl border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50 font-bold text-sm flex items-center justify-center gap-2 transition active:scale-95"
-            >
-              <i data-lucide="phone-call" class="w-4 h-4"></i>
-              <span>Qo'ng'iroq qilish: ${s.phone}</span>
+              <span>Telegramda buyurtma berish (@${cleanTg})</span>
             </a>
           </div>
         </div>

@@ -166,7 +166,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const cloud = await fetchStoreSettingsAsync();
       if (cloud) s = cloud;
     } catch(e) {}
-    if (settingPhone) settingPhone.value = s.phone || "+998930688035";
     if (settingTelegram) settingTelegram.value = s.telegram || "Yasminemkidss";
     if (settingFirebase) settingFirebase.value = s.firebaseUrl || DEFAULT_SETTINGS.firebaseUrl;
   }
@@ -175,7 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
     settingsForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const s = getStoreSettings();
-      s.phone = settingPhone.value.trim();
+      delete s.phone;
       s.telegram = settingTelegram.value.trim().replace(/^@/, '');
       s.firebaseUrl = (settingFirebase && settingFirebase.value.trim()) ? settingFirebase.value.trim() : DEFAULT_SETTINGS.firebaseUrl;
       saveStoreSettings(s);
