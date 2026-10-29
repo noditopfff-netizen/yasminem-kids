@@ -6,7 +6,7 @@ const DEFAULT_SETTINGS = {
   shopName: "Yasminem Kids",
   address: "Toshkent shahri, Chilonzor tumani",
   workHours: "09:00 - 20:00 (Har kuni)",
-  firebaseUrl: "" // Ixtiyoriy: agar Google Firebase Realtime Database URL kiritilsa, barcha klientlarda darhol ko'rinadi
+  firebaseUrl: "https://yasminem-kids-default-rtdb.firebaseio.com/"
 };
 
 const DEFAULT_CATEGORIES = [
@@ -80,7 +80,12 @@ function getStoreSettings() {
   const saved = localStorage.getItem("yasminaxon_settings");
   if (saved) {
     try {
-      return { ...DEFAULT_SETTINGS, ...JSON.parse(saved) };
+      const parsed = JSON.parse(saved);
+      return { 
+        ...DEFAULT_SETTINGS, 
+        ...parsed, 
+        firebaseUrl: (parsed.firebaseUrl && parsed.firebaseUrl.trim()) ? parsed.firebaseUrl : DEFAULT_SETTINGS.firebaseUrl 
+      };
     } catch (e) {
       return DEFAULT_SETTINGS;
     }

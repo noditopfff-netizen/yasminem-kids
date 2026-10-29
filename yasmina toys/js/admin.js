@@ -88,13 +88,20 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // 1. Auth tekshirish
-  function checkAuth() {
+  async function checkAuth() {
     const isAuth = sessionStorage.getItem("yasminaxon_admin_auth") === "true";
     if (isAuth) {
       loginSection.classList.add("hidden");
       adminDashboard.classList.remove("hidden");
       loadSettings();
       renderAdminProducts();
+      // Bulutli bazadan oxirgi mahsulotlarni yuklash
+      try {
+        const cloud = await fetchStoreProductsAsync();
+        if (cloud && cloud.length > 0) {
+          renderAdminProducts();
+        }
+      } catch (e) {}
     } else {
       loginSection.classList.remove("hidden");
       adminDashboard.classList.add("hidden");
