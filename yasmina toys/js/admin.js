@@ -65,12 +65,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 3000);
   }
 
-  // Firebase bulutiga sinxronizatsiya
+  // Firebase bulutiga mahsulotlarni sinxronizatsiya
   async function syncToFirebase(products) {
     const s = getStoreSettings();
-    if (s.firebaseUrl && s.firebaseUrl.trim()) {
+    const firebaseUrl = s.firebaseUrl || DEFAULT_SETTINGS.firebaseUrl;
+    if (firebaseUrl && firebaseUrl.trim()) {
       try {
-        let url = s.firebaseUrl.trim();
+        let url = firebaseUrl.trim();
         if (!url.endsWith("/")) url += "/";
         if (!url.includes(".json")) url += "products.json";
         await fetch(url, {
@@ -78,10 +79,32 @@ document.addEventListener("DOMContentLoaded", () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(products)
         });
-        showToast("Bulutli bazaga (Firebase) avtomatik saqlandi! ☁️", "success");
+        showToast("Mahsulotlar Google bazasiga saqlandi! ☁️", "success");
         return true;
       } catch (e) {
         console.error("Firebase sync xatosi:", e);
+      }
+    }
+    return false;
+  }
+
+  // Firebase bulutiga sozlamalarni (telefon, telegram) sinxronizatsiya
+  async function syncSettingsToFirebase(settings) {
+    const firebaseUrl = settings.firebaseUrl || DEFAULT_SETTINGS.firebaseUrl;
+    if (firebaseUrl && firebaseUrl.trim()) {
+      try {
+        let url = firebaseUrl.trim();
+        if (!url.endsWith("/")) url += "/";
+        url += "settings.json";
+        await fetch(url, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(settings)
+        });
+        showToast("Sozlamalar Google bulutiga saqlandi! ☁️", "success");
+        return true;
+      } catch (e) {
+        console.error("Firebase settings sync xatosi:", e);
       }
     }
     return false;
@@ -93,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isAuth) {
       loginSection.classList.add("hidden");
       adminDashboard.classList.remove("hidden");
-      loadSettings();
+      await loadSettings();
       renderAdminProducts();
       // Bulutli bazadan oxirgi mahsulotlarni yuklash
       try {
@@ -137,11 +160,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // 2. Sozlamalarni yuklash va saqlash
-  function loadSettings() {
-    const s = getStoreSettings();
+  async function loadSettings() {
+    let s = getStoreSettings();
+    try {
+      const cloud = await fetchStoreSettingsAsync();
+      if (cloud) s = cloud;
+    } catch(e) {}
     if (settingPhone) settingPhone.value = s.phone || "+998930688035";
-    if (settingTelegram) settingTelegram.value = s.telegram || "yasminem_kids";
-    if (settingFirebase) settingFirebase.value = s.firebaseUrl || "";
+    if (settingTelegram) settingTelegram.value = s.telegram || "Yasminemkidss";
+    if (settingFirebase) settingFirebase.value = s.firebaseUrl || DEFAULT_SETTINGS.firebaseUrl;
   }
 
   if (settingsForm) {
@@ -150,16 +177,17 @@ document.addEventListener("DOMContentLoaded", () => {
       const s = getStoreSettings();
       s.phone = settingPhone.value.trim();
       s.telegram = settingTelegram.value.trim().replace(/^@/, '');
-      s.firebaseUrl = settingFirebase ? settingFirebase.value.trim() : "";
+      s.firebaseUrl = (settingFirebase && settingFirebase.value.trim()) ? settingFirebase.value.trim() : DEFAULT_SETTINGS.firebaseUrl;
       saveStoreSettings(s);
       
-      // Agar Firebase kiritilgan bo'lsa, mahsulotlarni ham yuklaymiz
-      if (s.firebaseUrl) {
-        const products = getStoreProducts();
-        await syncToFirebase(products);
-      }
+      // Google Firebase bulutiga sozlamalarni saqlash
+      await syncSettingsToFirebase(s);
 
-      showToast("Sozlamalar muvaffaqiyatli saqlandi! 🎉", "success");
+      // Agar mahsulotlar ham bo'lsa, ularni ham sinxronlash
+      const products = getStoreProducts();
+      await syncToFirebase(products);
+
+      showToast("Sozlamalar saqlandi va barcha klientlarda yangilandi! 🎉", "success");
     });
   }
 
@@ -335,7 +363,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 5. products.js faylini yuklab olish (Klientlarda ko'rinishi uchun)
+  // 5. products.js faylini yuklab olish
   if (downloadProductsBtn) {
     downloadProductsBtn.addEventListener("click", () => {
       const products = getStoreProducts();
@@ -386,9 +414,10 @@ function saveStoreProducts(products) {
 
 async function fetchStoreProductsAsync() {
   const s = getStoreSettings();
-  if (s.firebaseUrl && s.firebaseUrl.trim()) {
+  const firebaseUrl = s.firebaseUrl || DEFAULT_SETTINGS.firebaseUrl;
+  if (firebaseUrl && firebaseUrl.trim()) {
     try {
-      let url = s.firebaseUrl.trim();
+      let url = firebaseUrl.trim();
       if (!url.endsWith("/")) url += "/";
       if (!url.includes(".json")) url += "products.json";
       const res = await fetch(url);
@@ -408,6 +437,30 @@ async function fetchStoreProductsAsync() {
   }
   return getStoreProducts();
 }
+
+async function fetchStoreSettingsAsync() {
+  const s = getStoreSettings();
+  const firebaseUrl = s.firebaseUrl || DEFAULT_SETTINGS.firebaseUrl;
+  if (firebaseUrl && firebaseUrl.trim()) {
+    try {
+      let url = firebaseUrl.trim();
+      if (!url.endsWith("/")) url += "/";
+      url += "settings.json";
+      const res = await fetch(url);
+      if (res.ok) {
+        const data = await res.json();
+        if (data && typeof data === 'object') {
+          const merged = { ...DEFAULT_SETTINGS, ...data, firebaseUrl };
+          localStorage.setItem("yasminaxon_settings", JSON.stringify(merged));
+          return merged;
+        }
+      }
+    } catch (e) {
+      console.warn("Sozlamalarni bulutdan yuklashda xatolik:", e);
+    }
+  }
+  return s;
+}
 `;
 
       const blob = new Blob([fileContent], { type: "text/javascript;charset=utf-8" });
@@ -420,7 +473,7 @@ async function fetchStoreProductsAsync() {
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
 
-      showToast("products.js yuklab olindi! Uni yasmina toys/js/ papkasiga tashlab, Netlify-ga yuklang.", "success");
+      showToast("products.js yuklab olindi!", "success");
     });
   }
 

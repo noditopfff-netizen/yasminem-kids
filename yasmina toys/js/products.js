@@ -2,7 +2,7 @@
 
 const DEFAULT_SETTINGS = {
   phone: "+998930688035",
-  telegram: "yasminem_kids",
+  telegram: "Yasminemkidss",
   shopName: "Yasminem Kids",
   address: "Toshkent shahri, Chilonzor tumani",
   workHours: "09:00 - 20:00 (Har kuni)",
@@ -110,7 +110,6 @@ function getStoreProducts() {
       console.error("Xatolik mahsulotlarni o'qishda:", e);
     }
   }
-  // Agar hali saqlanmagan bo'lsa, dastlabkilarini yozib qo'yamiz
   localStorage.setItem("yasminaxon_products", JSON.stringify(INITIAL_CLOTHES));
   return INITIAL_CLOTHES;
 }
@@ -119,12 +118,13 @@ function saveStoreProducts(products) {
   localStorage.setItem("yasminaxon_products", JSON.stringify(products));
 }
 
-// Bulutli bazadan (agar Firebase URL sozlangan bo'lsa) mahsulotlarni yuklash
+// Bulutli bazadan mahsulotlarni yuklash
 async function fetchStoreProductsAsync() {
   const s = getStoreSettings();
-  if (s.firebaseUrl && s.firebaseUrl.trim()) {
+  const firebaseUrl = s.firebaseUrl || DEFAULT_SETTINGS.firebaseUrl;
+  if (firebaseUrl && firebaseUrl.trim()) {
     try {
-      let url = s.firebaseUrl.trim();
+      let url = firebaseUrl.trim();
       if (!url.endsWith("/")) url += "/";
       if (!url.includes(".json")) url += "products.json";
       const res = await fetch(url);
@@ -139,8 +139,33 @@ async function fetchStoreProductsAsync() {
         }
       }
     } catch (e) {
-      console.warn("Bulutli bazadan yuklashda xatolik:", e);
+      console.warn("Bulutli bazadan mahsulotlarni yuklashda xatolik:", e);
     }
   }
   return getStoreProducts();
+}
+
+// Bulutli bazadan sozlamalarni (telefon, telegram) yuklash
+async function fetchStoreSettingsAsync() {
+  const s = getStoreSettings();
+  const firebaseUrl = s.firebaseUrl || DEFAULT_SETTINGS.firebaseUrl;
+  if (firebaseUrl && firebaseUrl.trim()) {
+    try {
+      let url = firebaseUrl.trim();
+      if (!url.endsWith("/")) url += "/";
+      url += "settings.json";
+      const res = await fetch(url);
+      if (res.ok) {
+        const data = await res.json();
+        if (data && typeof data === 'object') {
+          const merged = { ...DEFAULT_SETTINGS, ...data, firebaseUrl };
+          localStorage.setItem("yasminaxon_settings", JSON.stringify(merged));
+          return merged;
+        }
+      }
+    } catch (e) {
+      console.warn("Bulutli bazadan sozlamalarni yuklashda xatolik:", e);
+    }
+  }
+  return s;
 }

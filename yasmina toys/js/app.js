@@ -1,7 +1,7 @@
 // Yasminem Kids - Asosiy Ilova Skripti
 document.addEventListener("DOMContentLoaded", async () => {
   // 1. Ma'lumotlarni yuklash
-  const settings = getStoreSettings();
+  let settings = getStoreSettings();
   let products = getStoreProducts();
   let currentCategory = "all";
   let searchQuery = "";
@@ -13,21 +13,21 @@ document.addEventListener("DOMContentLoaded", async () => {
   const mobileSearchInput = document.getElementById("mobile-search-input");
   const productsCountEl = document.getElementById("products-count");
 
-  // Aloqa elementlari (telefon va telegram)
-  function applyStoreSettings() {
-    const s = getStoreSettings();
+  // Aloqa elementlarini sahifada yangilash
+  function applyStoreSettings(customSettings) {
+    const s = customSettings || getStoreSettings();
 
     // Telefon raqamlar
     document.querySelectorAll(".store-phone-text").forEach(el => el.innerText = s.phone);
     document.querySelectorAll(".store-phone-link").forEach(el => el.href = `tel:${s.phone.replace(/\s+/g, '')}`);
 
     // Telegram havolalar
-    const cleanTg = s.telegram.replace(/^@/, '');
+    const cleanTg = (s.telegram || "Yasminemkidss").replace(/^@/, '');
     document.querySelectorAll(".store-tg-text").forEach(el => el.innerText = `@${cleanTg}`);
     document.querySelectorAll(".store-tg-link").forEach(el => el.href = `https://t.me/${cleanTg}`);
   }
 
-  applyStoreSettings();
+  applyStoreSettings(settings);
 
   // Narxni formatlash helperi (240000 -> 240 000 so'm)
   function formatPrice(num) {
@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           </div>
         </div>
 
-        <!-- Ma'lumot qismi (faqat Narxi, Nomi va Tavsifi) -->
+        <!-- Ma'lumot qismi -->
         <div class="p-5 flex flex-col flex-1">
           <h3 class="font-bold text-slate-800 text-base line-clamp-1 mb-1.5 group-hover:text-pink-600 transition" title="${item.name}">
             ${item.name}
@@ -156,8 +156,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const modal = document.getElementById("order-modal");
     const content = document.getElementById("order-modal-content");
-    const cleanTg = s.telegram.replace(/^@/, '');
-    const cleanPhone = s.phone.replace(/\s+/g, '');
+    const cleanTg = (s.telegram || "Yasminemkidss").replace(/^@/, '');
+    const cleanPhone = (s.phone || "+998930688035").replace(/\s+/g, '');
 
     const tgMessage = encodeURIComponent(`Assalomu alaykum! Men "Yasminem Kids" do'konidan "${item.name}" kiyimini sotib olmoqchiman.\nNarxi: ${formatPrice(item.price)}.\nBatafsil ma'lumot bera olasizmi?`);
     const tgUrl = `https://t.me/${cleanTg}?text=${tgMessage}`;
@@ -217,8 +217,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const modal = document.getElementById("product-modal");
     const content = document.getElementById("product-modal-content");
-    const cleanTg = s.telegram.replace(/^@/, '');
-    const cleanPhone = s.phone.replace(/\s+/g, '');
+    const cleanTg = (s.telegram || "Yasminemkidss").replace(/^@/, '');
+    const cleanPhone = (s.phone || "+998930688035").replace(/\s+/g, '');
 
     const tgMessage = encodeURIComponent(`Assalomu alaykum! Men "${item.name}" kiyimi haqida ma'lumot olmoqchiman. Narxi: ${formatPrice(item.price)}`);
     const tgUrl = `https://t.me/${cleanTg}?text=${tgMessage}`;
@@ -311,8 +311,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   renderCategories();
   renderProducts();
 
-  // Agar Firebase bulutli baza sozlangan bo'lsa, real vaqtda yuklab olamiz
+  // Google Firebase dan real vaqtda yangi sozlamalar va mahsulotlarni yuklash
   try {
+    const cloudSettings = await fetchStoreSettingsAsync();
+    if (cloudSettings) {
+      applyStoreSettings(cloudSettings);
+    }
+
     const cloudProducts = await fetchStoreProductsAsync();
     if (cloudProducts && cloudProducts.length > 0) {
       products = cloudProducts;
