@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - Yasminem Kids</title>
+  
+  <link rel="icon" type="image/jpeg" href="assets/logo.jpg">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen">
+
+  <!-- ================= 1. LOGIN EKRANI ================= -->
+  <div id="login-section" class="min-h-screen flex items-center justify-center p-4 bg-boutique-pattern">
+    <div class="w-full max-w-md bg-white rounded-3xl p-8 shadow-xl border border-pink-100">
+      
+      <div class="text-center mb-8">
+        <img 
+          src="assets/logo.jpg" 
+          alt="Yasminem Kids" 
+          class="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl object-cover mx-auto mb-3 shadow-xl border-2 border-pink-200"
+        >
+        <h1 class="text-2xl font-bold text-slate-900 font-serif-heading">Yasminem Kids</h1>
+        <p class="text-xs text-slate-500 mt-1">Boshqaruv tizimiga kirish</p>
+      </div>
+
+      <form id="login-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">Login</label>
+          <div class="relative">
+            <input 
+              type="text" 
+              id="admin-login" 
+              required 
+              placeholder="Loginingizni kiriting"
+              class="w-full pl-10 pr-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-pink-500 focus:bg-white transition"
+            >
+            <div class="absolute left-3.5 top-3.5 text-slate-400">
+              <i data-lucide="user" class="w-4 h-4"></i>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">Parol</label>
+          <div class="relative">
+            <input 
+              type="password" 
+              id="admin-password" 
+              required 
+              placeholder="Parolni kiriting"
+              class="w-full pl-10 pr-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-pink-500 focus:bg-white transition"
+            >
+            <div class="absolute left-3.5 top-3.5 text-slate-400">
+              <i data-lucide="lock" class="w-4 h-4"></i>
+            </div>
+          </div>
+        </div>
+
+        <div id="login-error" class="hidden p-3 rounded-xl bg-red-50 border border-red-200 text-red-600 text-xs font-bold text-center">
+          Login yoki parol noto'g'ri! Qayta urinib ko'ring.
+        </div>
+
+        <button 
+          type="submit" 
+          class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700 text-white font-bold text-sm shadow-lg shadow-pink-600/25 transition active:scale-95 flex items-center justify-center gap-2"
+        >
+          <i data-lucide="log-in" class="w-4 h-4"></i>
+          <span>Tizimga kirish</span>
+        </button>
+      </form>
+
+      <div class="mt-6 text-center">
+        <a href="index.html" class="text-xs font-bold text-slate-500 hover:text-pink-600 transition flex items-center justify-center gap-1">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span>Asosiy do'konga qaytish</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= 2. ASOSIY ADMIN BOSHQARUV PANELI ================= -->
+  <div id="admin-dashboard" class="hidden min-h-screen flex flex-col">
+    
+    <!-- Admin Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+        
+        <div class="flex items-center gap-3">
+          <img src="assets/logo.jpg" alt="Yasminem Kids" class="w-11 h-11 rounded-xl object-cover border border-pink-200">
+          <div>
+            <h2 class="font-bold text-slate-900 text-sm sm:text-base leading-tight font-serif-heading">Yasminem Kids</h2>
+            <span class="text-[11px] font-bold text-pink-600 tracking-wider uppercase">Admin Boshqaruv Paneli</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a 
+            href="index.html" 
+            target="_blank"
+            class="hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-200 hover:border-pink-300 text-slate-700 hover:text-pink-600 text-xs font-bold transition"
+          >
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            <span>Saytni ko'rish</span>
+          </a>
+
+          <button 
+            id="admin-logout-btn" 
+            class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-red-50 text-slate-700 hover:text-red-600 text-xs font-bold transition"
+          >
+            <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+            <span>Chiqish</span>
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Asosiy Tarkib -->
+    <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      
+      <!-- 1. SOZLAMALAR BLOKI (Telefon va Telegram) -->
+      <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200/80">
+        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
+          <div class="w-10 h-10 rounded-xl bg-pink-50 text-pink-600 flex items-center justify-center">
+            <i data-lucide="settings" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-slate-900 text-base sm:text-lg">Bog'lanish va Buyurtma Sozlamalari</h3>
+            <p class="text-xs text-slate-500">Xaridorlar mahsulotni sotib olish uchun qaysi raqam va telegramga murojaat qilishini sozlang</p>
+          </div>
+        </div>
+
+        <form id="settings-form" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">
+              Telefon raqamingiz (Bog'lanish uchun)
+            </label>
+            <div class="relative">
+              <input 
+                type="text" 
+                id="setting-phone" 
+                required 
+                placeholder="+998930688035"
+                class="w-full pl-10 pr-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-sm font-semibold focus:outline-none focus:border-pink-500 focus:bg-white transition"
+              >
+              <div class="absolute left-3.5 top-3.5 text-slate-400">
+                <i data-lucide="phone" class="w-4 h-4"></i>
+              </div>
+            </div>
+            <p class="text-[11px] text-slate-400 mt-1">Xaridorlar to'g'ridan-to'g'ri shu raqamga qo'ng'iroq qilishadi.</p>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">
+              Telegram Username (masalan: @username)
+            </label>
+            <div class="relative">
+              <input 
+                type="text" 
+                id="setting-telegram" 
+                required 
+                placeholder="yasminem_kids"
+                class="w-full pl-10 pr-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-sm font-semibold focus:outline-none focus:border-pink-500 focus:bg-white transition"
+              >
+              <div class="absolute left-3.5 top-3.5 text-slate-400">
+                <i data-lucide="send" class="w-4 h-4"></i>
+              </div>
+            </div>
+            <p class="text-[11px] text-slate-400 mt-1">Xaridorlar "Sotib olish"ni bosganda to'g'ridan-to'g'ri shu Telegram profilga xabar yuboriladi.</p>
+          </div>
+
+          <!-- Firebase Bulutli Baza URL (Ixtiyoriy) -->
+          <div class="md:col-span-2">
+            <label class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">
+              Google Firebase Database URL (Avtomatik bulutli sinxronizatsiya uchun, ixtiyoriy)
+            </label>
+            <div class="relative">
+              <input 
+                type="url" 
+                id="setting-firebase" 
+                placeholder="https://yasminem-kids-default-rtdb.firebaseio.com"
+                class="w-full pl-10 pr-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-sm font-mono focus:outline-none focus:border-pink-500 focus:bg-white transition"
+              >
+              <div class="absolute left-3.5 top-3.5 text-slate-400">
+                <i data-lucide="database" class="w-4 h-4"></i>
+              </div>
+            </div>
+            <p class="text-[11px] text-slate-400 mt-1">Agar Google Firebase Realtime Database ulasangiz, yangi kiyimlar Netlify-ga qayta yuklamasdan barcha klientlarda avtomatik ko'rinadi.</p>
+          </div>
+
+          <div class="md:col-span-2 flex justify-end">
+            <button 
+              type="submit" 
+              class="px-6 py-3 rounded-2xl bg-pink-600 hover:bg-pink-700 text-white font-bold text-xs uppercase tracking-wider transition shadow-md shadow-pink-600/20 flex items-center gap-2"
+            >
+              <i data-lucide="save" class="w-4 h-4"></i>
+              <span>Sozlamalarni Saqlash</span>
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- QO'LLANMA VA EXPORT BLOKI (Klientlarda ko'rinishi uchun) -->
+      <section class="bg-gradient-to-r from-amber-50 to-pink-50 border border-amber-200 rounded-3xl p-6 sm:p-7 shadow-sm">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div class="flex items-start gap-3.5">
+            <div class="w-10 h-10 rounded-2xl bg-amber-400 text-slate-900 flex items-center justify-center flex-shrink-0 font-bold text-xl shadow-md">
+              💡
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-900 text-sm sm:text-base">Nega yangi kiyimlar boshqa odamlar (klientlar) telefonida darhol ko'rinmaydi?</h4>
+              <p class="text-xs text-slate-600 mt-1 max-w-2xl leading-relaxed">
+                Chunki Netlify hostingida yangi kiyimlar hamma klientlarda ko'rinishi uchun sayt bazasini yangilab qo'yish kerak. Quyidagi tugmani bosing va yuklangan <b>products.js</b> faylini <code>yasmina toys/js/</code> papkasiga almashtirib, Netlify-ga yana bir bor papkani tashlang (Drag & Drop). Shunda kiyimlar hamma klientlarda paydo bo'ladi!
+              </p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2.5 flex-shrink-0 w-full md:w-auto">
+            <button 
+              id="download-products-btn"
+              type="button"
+              class="w-full md:w-auto px-5 py-3 rounded-2xl bg-pink-700 hover:bg-pink-800 text-white font-bold text-xs uppercase tracking-wider transition shadow-lg shadow-pink-700/20 flex items-center justify-center gap-2"
+            >
+              <i data-lucide="download" class="w-4 h-4"></i>
+              <span>Yangi products.js faylini yuklab olish</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. MAHSULOTLAR RO'YXATI VA QO'SHISH -->
+      <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200/80">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100">
+          <div>
+            <h3 class="font-bold text-slate-900 text-base sm:text-lg">Kiyimlar Katalogi</h3>
+            <p class="text-xs text-slate-500">Do'kondagi barcha kiyimlar, ularning narxi, rasmi va tavsifi</p>
+          </div>
+
+          <button 
+            id="open-add-product-btn" 
+            class="px-5 py-3 rounded-2xl bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700 text-white font-bold text-xs uppercase tracking-wider transition shadow-lg shadow-pink-600/25 flex items-center justify-center gap-2"
+          >
+            <i data-lucide="plus-circle" class="w-4 h-4"></i>
+            <span>Yangi Kiyim Qo'shish</span>
+          </button>
+        </div>
+
+        <!-- Mahsulotlar jadvali / ro'yxati -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead>
+              <tr class="border-b border-slate-200 text-slate-400 uppercase tracking-wider text-[10px]">
+                <th class="py-3 px-3">Rasm</th>
+                <th class="py-3 px-3">Nomi</th>
+                <th class="py-3 px-3">Kategoriya</th>
+                <th class="py-3 px-3">Narxi</th>
+                <th class="py-3 px-3">Tavsifi</th>
+                <th class="py-3 px-3 text-right">Amallar</th>
+              </tr>
+            </thead>
+            <tbody id="admin-products-table" class="divide-y divide-slate-100">
+              <!-- JS orqali to'ldiriladi -->
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- ================= 3. MAHSULOT QO'SHISH / TAHRIRLASH MODALI ================= -->
+  <div id="product-modal" class="modal-backdrop fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="modal-content bg-white w-full max-w-xl rounded-3xl shadow-2xl overflow-hidden relative p-6 sm:p-8 max-h-[92vh] overflow-y-auto">
+      
+      <button id="close-product-modal-btn" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-800 rounded-full hover:bg-slate-100 transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="mb-5">
+        <h3 id="product-modal-title" class="font-bold text-lg text-slate-900 font-serif-heading">Yangi Kiyim Qo'shish</h3>
+        <p class="text-xs text-slate-500 mt-0.5">Kiyimning rasmi, nomi, narxi va tavsifini kiriting</p>
+      </div>
+
+      <form id="product-form" class="space-y-4">
+        <input type="hidden" id="form-product-id">
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Kiyim nomi *</label>
+          <input 
+            type="text" 
+            id="form-product-name" 
+            required 
+            placeholder="Masalan: Qizaloqlar uchun gulli yozgi libos" 
+            class="w-full px-4 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-pink-500 focus:bg-white transition"
+          >
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Kategoriya *</label>
+            <select 
+              id="form-product-category" 
+              required
+              class="w-full px-4 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-pink-500 focus:bg-white transition"
+            >
+              <option value="dresses">Ko'ylaklar</option>
+              <option value="kids">Bolalar kiyimlari</option>
+              <option value="sets">Kostyum & To'plamlar</option>
+              <option value="seasonal">Mavsumiy kiyimlar</option>
+              <option value="casual">Kundalik kiyimlar</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Narxi (so'mda) *</label>
+            <input 
+              type="number" 
+              id="form-product-price" 
+              required 
+              placeholder="Masalan: 220000" 
+              class="w-full px-4 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-pink-500 focus:bg-white transition"
+            >
+          </div>
+        </div>
+
+        <!-- Rasm tanlash (Fayl yoki URL) -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Kiyim Rasmi *</label>
+          
+          <div class="space-y-2">
+            <!-- Telefondan / Kompyuterdan fayl yuklash -->
+            <div class="p-3 bg-pink-50/50 border border-dashed border-pink-300 rounded-2xl text-center">
+              <input type="file" id="form-product-file" accept="image/*" class="hidden">
+              <button 
+                type="button" 
+                onclick="document.getElementById('form-product-file').click()" 
+                class="px-4 py-2 bg-white text-pink-700 border border-pink-200 rounded-xl text-xs font-bold shadow-sm hover:bg-pink-100 transition inline-flex items-center gap-1.5"
+              >
+                <i data-lucide="upload" class="w-3.5 h-3.5"></i>
+                <span>Telefon / Kompyuterdan rasm tanlash</span>
+              </button>
+              <p class="text-[10px] text-slate-400 mt-1">yoki pastga rasm havolasini (URL) yozing:</p>
+            </div>
+
+            <input 
+              type="url" 
+              id="form-product-image" 
+              placeholder="https://images.unsplash.com/..." 
+              class="w-full px-4 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs focus:outline-none focus:border-pink-500 focus:bg-white transition"
+            >
+          </div>
+
+          <!-- Rasm ko'rinishi (Preview) -->
+          <div id="image-preview-container" class="mt-2 hidden">
+            <p class="text-[11px] font-bold text-slate-400 mb-1">Tanlangan rasm:</p>
+            <img id="image-preview" src="" class="w-24 h-24 object-cover rounded-xl border border-slate-200">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Tavsifi *</label>
+          <textarea 
+            id="form-product-description" 
+            rows="3" 
+            required 
+            placeholder="Matosi, bichimi, o'lchamlari va kiyilish qulayligi haqida ma'lumot..."
+            class="w-full px-4 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs focus:outline-none focus:border-pink-500 focus:bg-white transition resize-none"
+          ></textarea>
+        </div>
+
+        <div class="pt-2">
+          <button 
+            type="submit" 
+            class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700 text-white font-bold text-xs uppercase tracking-wider transition shadow-lg shadow-pink-600/25 flex items-center justify-center gap-2"
+          >
+            <i data-lucide="check" class="w-4 h-4"></i>
+            <span>Saqlash</span>
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Toast xabarnoma -->
+  <div id="toast-container"></div>
+
+  <!-- Skriptlar -->
+  <script src="js/products.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

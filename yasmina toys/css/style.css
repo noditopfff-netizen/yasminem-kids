@@ -1,0 +1,139 @@
+/* Yasminaxon Kiyimlari - Stillar */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --primary: #BE185D; /* Elegant Rose */
+  --primary-light: #FDF2F8;
+  --primary-hover: #9D174D;
+  --accent: #D97706; /* Warm Gold */
+  --dark: #0F172A;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: #FAFAFC;
+  overflow-x: hidden;
+  color: #1E293B;
+}
+
+h1, h2, h3, h4, .font-serif-heading {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Elegant subtle pattern */
+.bg-boutique-pattern {
+  background-color: #ffffff;
+  background-image: radial-gradient(#FBCFE8 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Product Card */
+.clothing-card {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.clothing-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 35px -10px rgba(190, 24, 93, 0.12);
+}
+
+.clothing-img-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.clothing-img-container img {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.clothing-card:hover .clothing-img-container img {
+  transform: scale(1.06);
+}
+
+/* Category Pill Active */
+.category-pill.active {
+  background: linear-gradient(135deg, #BE185D 0%, #E11D48 100%);
+  color: #ffffff;
+  box-shadow: 0 10px 20px -5px rgba(190, 24, 93, 0.35);
+  border-color: transparent;
+}
+
+/* Modals */
+.modal-backdrop {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  transform: scale(0.95) translateY(12px);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-backdrop.active .modal-content {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+/* Floating animation */
+@keyframes floatAnim {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-gentle-float {
+  animation: floatAnim 4s ease-in-out infinite;
+}
+
+/* Toast */
+#toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.toast-item {
+  pointer-events: auto;
+  animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes toastIn {
+  from {
+    transform: translateY(15px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

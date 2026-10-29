@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="uz" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yasminem Kids - Bolalar Kiyimlari Do'koni</title>
+  
+  <link rel="icon" type="image/jpeg" href="assets/logo.jpg">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              pink: '#BE185D',
+              pinkHover: '#9D174D',
+              rose: '#E11D48',
+              gold: '#D97706',
+              dark: '#0F172A',
+            }
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="text-slate-800 antialiased selection:bg-pink-100 selection:text-pink-700 min-h-screen flex flex-col">
+
+  <!-- 1. Yuqori aloqa paneli -->
+  <div class="bg-slate-900 text-slate-300 text-xs py-2.5 px-4 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <span class="flex items-center gap-1.5 text-pink-400 font-semibold">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+          <span>Yasminem Kids do'koni</span>
+        </span>
+        <span class="hidden md:inline opacity-40">|</span>
+        <span class="hidden md:inline text-slate-400">Buyurtma va savollar uchun to'g'ridan-to'g'ri bog'laning</span>
+      </div>
+
+      <div class="flex items-center gap-5">
+        <!-- Telefon -->
+        <a href="tel:+998930688035" class="store-phone-link flex items-center gap-1.5 text-white hover:text-pink-400 font-bold transition">
+          <i data-lucide="phone-call" class="w-3.5 h-3.5 text-pink-500"></i>
+          <span class="store-phone-text">+998930688035</span>
+        </a>
+        <span class="opacity-40">|</span>
+        <!-- Telegram -->
+        <a href="https://t.me/yasminaxon_admin" target="_blank" class="store-tg-link flex items-center gap-1.5 text-sky-400 hover:text-sky-300 font-bold transition">
+          <i data-lucide="send" class="w-3.5 h-3.5"></i>
+          <span class="store-tg-text">@yasminaxon_admin</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Asosiy Header / Navbar -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm transition">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
+      
+      <!-- Brend Logotipi (Katta va Ko'rkam) -->
+      <a href="#" class="flex items-center gap-3 sm:gap-4 group flex-shrink-0">
+        <img 
+          src="assets/logo.jpg" 
+          alt="Yasminem Kids Logo" 
+          class="h-16 sm:h-20 w-16 sm:w-20 rounded-2xl shadow-md border-2 border-pink-200/90 object-cover group-hover:scale-105 transition-transform"
+        >
+        <div>
+          <span class="font-serif-heading text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 leading-none block">
+            Yasminem <span class="text-pink-700">Kids</span>
+          </span>
+          <span class="block text-[11px] uppercase tracking-widest font-bold text-pink-600 mt-1">
+            Zamonaviy Bolalar Liboslari
+          </span>
+        </div>
+      </a>
+
+      <!-- Qidiruv maydoni (Katta ekranlar) -->
+      <div class="hidden lg:flex flex-1 max-w-md mx-6">
+        <div class="relative w-full">
+          <input 
+            type="text" 
+            id="search-input"
+            placeholder="Kiyim nomi yoki tavsifini qidiring..."
+            class="w-full bg-slate-50 border border-slate-200 rounded-2xl pl-11 pr-4 py-2.5 text-sm font-medium focus:outline-none focus:border-pink-500 focus:bg-white focus:ring-4 focus:ring-pink-100 transition"
+          >
+          <div class="absolute left-3.5 top-3 text-slate-400">
+            <i data-lucide="search" class="w-4 h-4"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bog'lanish va Admin Tugmasi -->
+      <div class="flex items-center gap-3">
+        <!-- Telegram orqali bog'lanish tugmasi -->
+        <a 
+          href="https://t.me/yasminaxon_admin" 
+          target="_blank" 
+          class="store-tg-link hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-sky-50 text-sky-700 hover:bg-sky-100 text-xs font-bold transition border border-sky-100"
+        >
+          <i data-lucide="send" class="w-4 h-4"></i>
+          <span>Telegram</span>
+        </a>
+
+        <!-- Qo'ng'iroq qilish tugmasi -->
+        <a 
+          href="tel:+998930688035" 
+          class="store-phone-link flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-pink-700 hover:bg-pink-800 text-white shadow-md shadow-pink-700/20 text-xs font-bold transition active:scale-95"
+        >
+          <i data-lucide="phone" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">Bog'lanish:</span>
+          <span class="store-phone-text">+998930688035</span>
+        </a>
+
+        <!-- Admin Panelga kirish tugmasi -->
+        <a 
+          href="admin.html" 
+          class="p-2.5 rounded-2xl border border-slate-200 hover:border-pink-300 hover:bg-pink-50 text-slate-600 hover:text-pink-700 transition" 
+          title="Admin Panel"
+        >
+          <i data-lucide="lock" class="w-5 h-5"></i>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Mobil uchun qidiruv maydoni -->
+    <div class="lg:hidden px-4 pb-3">
+      <div class="relative w-full">
+        <input 
+          type="text" 
+          id="mobile-search-input"
+          placeholder="Kiyimlarni qidirish..."
+          class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-2 text-sm focus:outline-none focus:border-pink-500 focus:bg-white"
+        >
+        <div class="absolute left-3 top-2.5 text-slate-400">
+          <i data-lucide="search" class="w-4 h-4"></i>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1">
+
+    <!-- 3. Hero Bo'limi -->
+    <section class="relative bg-boutique-pattern py-12 md:py-20 border-b border-slate-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-50 border border-pink-200 text-pink-700 text-xs font-bold shadow-sm">
+              <span class="w-2 h-2 rounded-full bg-pink-600"></span>
+              Yangi Zamonaviy Kiyimlar Katalogi ✨
+            </div>
+
+            <h1 class="font-serif-heading text-3xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-[1.2]">
+              Har bir lahza uchun <span class="text-pink-700 italic">bejirim va sifatli</span> liboslar!
+            </h1>
+
+            <p class="text-base sm:text-lg text-slate-600 font-medium max-w-xl mx-auto lg:mx-0 leading-relaxed">
+              Bizning katalogimizdan o'zingizga ma'qul kelgan kiyimni tanlang. Xarid qilish to'g'ridan-to'g'ri do'kon admini orqali amalga oshiriladi.
+            </p>
+
+            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+              <a 
+                href="#catalog" 
+                class="px-8 py-4 rounded-2xl bg-pink-700 hover:bg-pink-800 text-white font-bold text-sm sm:text-base shadow-lg shadow-pink-700/25 transition transform hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-2"
+              >
+                <span>Katalogga o'tish</span>
+                <i data-lucide="arrow-down" class="w-4 h-4"></i>
+              </a>
+
+              <a 
+                href="tel:+998930688035" 
+                class="store-phone-link px-7 py-4 rounded-2xl bg-white border-2 border-slate-200 hover:border-pink-300 text-slate-800 hover:text-pink-700 font-bold text-sm sm:text-base transition shadow-sm hover:shadow flex items-center gap-2"
+              >
+                <i data-lucide="phone-call" class="w-4 h-4 text-emerald-600"></i>
+                <span class="store-phone-text">+998930688035</span>
+              </a>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-6 pt-4 text-xs font-semibold text-slate-500">
+              <div class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
+                <span>Yuqori sifatli matolar</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
+                <span>Tezkor yetkazib berish</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
+                <span>Admin bilan to'g'ridan-to'g'ri aloqa</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- O'ng tomondagi rasm banner (Rasmiy Brend Logosi) -->
+          <div class="lg:col-span-5 flex justify-center">
+            <div class="relative w-full max-w-sm sm:max-w-md">
+              <div class="rounded-3xl overflow-hidden shadow-2xl border-4 border-pink-200/80 bg-white aspect-square flex items-center justify-center p-2">
+                <img 
+                  src="assets/logo.jpg" 
+                  alt="Yasminem Kids Logo" 
+                  class="w-full h-full object-cover rounded-2xl"
+                >
+              </div>
+
+              <!-- Suzuvchi info stiker -->
+              <div class="absolute -bottom-4 -left-4 sm:-left-6 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-pink-100 flex items-center gap-3 animate-gentle-float">
+                <div class="w-12 h-12 rounded-xl bg-pink-100 text-pink-700 flex items-center justify-center text-2xl">
+                  🦄
+                </div>
+                <div>
+                  <p class="text-xs font-bold text-slate-900">Yasminem Kids</p>
+                  <p class="text-[11px] font-semibold text-pink-600">Rasmiy Brend Do'koni</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Katalog Bo'limi -->
+    <section id="catalog" class="py-12 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Sarlavha -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-pink-700 bg-pink-50 px-3 py-1 rounded-full border border-pink-100">
+            Bizning To'plam
+          </span>
+          <h2 class="font-serif-heading text-2xl sm:text-4xl font-bold text-slate-900 mt-2">
+            Kiyimlar Katalogi 👗
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1" id="products-count">
+            Mavjud kiyimlar ro'yxati
+          </p>
+        </div>
+      </div>
+
+      <!-- Kategoriya tugmalari -->
+      <div class="flex items-center gap-2.5 overflow-x-auto pb-4 scrollbar-none mb-8" id="categories-container">
+        <!-- JS orqali to'ldiriladi -->
+      </div>
+
+      <!-- Mahsulotlar to'ri (Grid) -->
+      <div 
+        id="products-container" 
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-7"
+      >
+        <!-- JS orqali to'ldiriladi -->
+      </div>
+
+    </section>
+
+    <!-- 5. Bog'lanish Bo'limi -->
+    <section class="py-12 bg-white border-t border-slate-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-gradient-to-r from-pink-800 via-pink-700 to-rose-700 rounded-3xl p-8 sm:p-12 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+          <div class="space-y-2 text-center md:text-left">
+            <h3 class="font-serif-heading text-2xl sm:text-3xl font-bold">Yoqqan kiyimni buyurtma qilmoqchimisiz?</h3>
+            <p class="text-sm text-pink-100 max-w-lg">
+              Biz bilan to'g'ridan-to'g'ri bog'laning. O'lchamlar, ranglar va yetkazib berish bo'yicha darhol ma'lumot beramiz!
+            </p>
+          </div>
+          
+          <div class="flex flex-wrap items-center gap-3">
+            <a 
+              href="https://t.me/yasminaxon_admin" 
+              target="_blank" 
+              class="store-tg-link px-6 py-3.5 bg-white text-pink-800 hover:bg-pink-50 font-bold text-xs uppercase tracking-wider rounded-2xl shadow-lg transition active:scale-95 flex items-center gap-2"
+            >
+              <i data-lucide="send" class="w-4 h-4"></i>
+              <span>Telegramda yozish</span>
+            </a>
+
+            <a 
+              href="tel:+998930688035" 
+              class="store-phone-link px-6 py-3.5 bg-pink-900/40 hover:bg-pink-900/60 border border-white/20 text-white font-bold text-xs uppercase tracking-wider rounded-2xl transition active:scale-95 flex items-center gap-2"
+            >
+              <i data-lucide="phone-call" class="w-4 h-4"></i>
+              <span class="store-phone-text">+998930688035</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Reklama Bo'limi -->
+    <section class="py-10 bg-slate-100/80 border-t border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/80 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="flex items-center gap-4 text-center md:text-left">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-sky-500 to-blue-600 text-white flex items-center justify-center flex-shrink-0 text-2xl shadow-lg shadow-sky-500/20">
+              💻
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-900 text-base sm:text-lg">Sizga ham shunday veb-sayt kerakmi?</h4>
+              <p class="text-xs sm:text-sm text-slate-500 mt-1">
+                Agar sizga ham shunaqa zamonaviy sayt yoki internet-do'kon kerak bo'lsa, Telegram orqali bog'laning:
+              </p>
+            </div>
+          </div>
+          <a 
+            href="https://t.me/ndilmurodovich" 
+            target="_blank" 
+            class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-sky-500/25 transition active:scale-95 flex items-center gap-2 flex-shrink-0"
+          >
+            <i data-lucide="send" class="w-4 h-4"></i>
+            <span>@ndilmurodovich bilan bog'lanish</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 7. Footer -->
+  <footer class="bg-slate-900 text-slate-400 text-xs pt-12 pb-8 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 pb-8 border-b border-slate-800">
+        
+        <div>
+          <div class="flex items-center gap-3 mb-3">
+            <img src="assets/logo.jpg" alt="Yasminem Kids" class="w-12 h-12 rounded-xl object-cover border border-slate-700">
+            <span class="font-serif-heading text-xl font-bold text-white">Yasminem Kids</span>
+          </div>
+          <p class="text-slate-400 text-xs leading-relaxed max-w-sm">
+            Zamonaviy, nafis va bejirim bolalar kiyimlari kolleksiyasi. Buyurtmalar to'g'ridan-to'g'ri admin orqali qabul qilinadi.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white text-xs uppercase tracking-wider mb-3">Bog'lanish</h4>
+          <ul class="space-y-2">
+            <li>
+              <a href="tel:+998930688035" class="store-phone-link hover:text-white flex items-center gap-2 transition">
+                <i data-lucide="phone" class="w-3.5 h-3.5 text-pink-500"></i>
+                <span class="store-phone-text">+998930688035</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://t.me/yasminem_kids" target="_blank" class="store-tg-link hover:text-white flex items-center gap-2 transition">
+                <i data-lucide="send" class="w-3.5 h-3.5 text-pink-500"></i>
+                <span class="store-tg-text">@yasminem_kids</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="flex flex-col items-start md:items-end justify-between">
+          <a 
+            href="admin.html" 
+            class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition font-bold flex items-center gap-2"
+          >
+            <i data-lucide="lock" class="w-3.5 h-3.5 text-pink-400"></i>
+            <span>Admin Panelga Kirish</span>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500 text-[11px]">
+        <p>© 2026 Yasminem Kids. Barcha huquqlar himoyalangan.</p>
+        <p class="flex items-center gap-1.5">
+          <span>Sayt yaratish:</span>
+          <a href="https://t.me/ndilmurodovich" target="_blank" class="text-sky-400 hover:underline font-bold flex items-center gap-1">
+            <i data-lucide="send" class="w-3 h-3"></i>
+            <span>@ndilmurodovich</span>
+          </a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== MODALLAR ==================== -->
+
+  <!-- 1. Sotib olish / Buyurtma berish Modali -->
+  <div id="order-modal" class="modal-backdrop fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="modal-content bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden relative p-6 sm:p-8">
+      <button onclick="closeOrderModal()" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-800 rounded-full hover:bg-slate-100 transition z-10">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div id="order-modal-content">
+        <!-- JS orqali to'ldiriladi -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Mahsulotni batafsil ko'rish (Product View Modal) -->
+  <div id="product-modal" class="modal-backdrop fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="modal-content bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden relative p-6 sm:p-8 max-h-[90vh] overflow-y-auto">
+      <button onclick="closeProductModal()" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-800 rounded-full hover:bg-slate-100 transition z-10">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+
+      <div id="product-modal-content">
+        <!-- JS orqali to'ldiriladi -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Skriptlar -->
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
